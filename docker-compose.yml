@@ -1,0 +1,468 @@
+---
+version: '2'
+services:
+
+
+############################
+#                          #
+#     production cluster   #
+#                          #
+############################
+
+  PROD-zk-1:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: PROD-zk-1
+    container_name: PROD-zk-1
+    network_mode: host
+    ports:
+      - "61181:61181"
+      - "61888:61988"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 61181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
+
+  PROD-zk-2:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: PROD-zk-2
+    container_name: PROD-zk-2
+    network_mode: host
+    ports:
+      - "62181:62181"
+      - "62888:62988"
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 62181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
+
+  PROD-zk-3:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: PROD-zk-3
+    container_name: PROD-zk-3
+    network_mode: host
+    ports:
+      - "63181:63181"
+      - "63888:63988"
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 63181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
+
+  PROD-broker-1:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: PROD-broker-1
+    container_name: PROD-broker-1
+    network_mode: host
+    depends_on:
+      - PROD-zk-1
+      - PROD-zk-2
+      - PROD-zk-3
+    ports:
+      - "17092:17092"
+      - "16092:16092"
+    environment:
+      KAFKA_BROKER_ID: 4
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:61181,localhost:62181,localhost:63181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:17092,PLAINTEXT_HOST://localhost:16092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092,localhost:19092,localhost:39092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  PROD-broker-2:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: PROD-broker-2
+    container_name: PROD-broker-2
+    network_mode: host
+    depends_on:
+      - PROD-zk-1
+      - PROD-zk-2
+      - PROD-zk-3
+    ports:
+      - "27092:27092"
+      - "26092:26092"
+    environment:
+      KAFKA_BROKER_ID: 5
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:61181,localhost:62181,localhost:63181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:27092,PLAINTEXT_HOST://localhost:26092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092,localhost:19092,localhost:39092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  PROD-broker-3:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: PROD-broker-3
+    container_name: PROD-broker-3
+    network_mode: host
+    depends_on:
+      - PROD-zk-1
+      - PROD-zk-2
+      - PROD-zk-3
+    ports:
+      - "37092:37092"
+      - "36092:36092"
+    environment:
+      KAFKA_BROKER_ID: 6
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:61181,localhost:62181,localhost:63181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:37092,PLAINTEXT_HOST://localhost:36092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092,localhost:19092,localhost:39092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+
+################################
+#                              #
+#     control-center cluster   #
+#                              #
+################################
+
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: zookeeper-1
+    container_name: zookeeper-1
+    network_mode: host
+    ports:
+      - "12181:12181"
+      - "22888:23888"
+#    volumes:
+#      - /vols/zookeeper-1-data:/var/lib/zookeeper/data  
+#      - /vols/zookeeper-1-log:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 12181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: zookeeper-2
+    container_name: zookeeper-2
+    network_mode: host
+    ports:
+      - "22181:22181"
+      - "32888:33888"
+#    volumes:
+#      - /vols/zookeeper-2-data:/var/lib/zookeeper/data  
+#      - /vols/zookeeper-2-log:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+
+  zookeeper-3:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: zookeeper-3
+    container_name: zookeeper-3
+    network_mode: host
+    ports:
+      - "32181:32181"
+      - "42888:43888"
+#    volumes:
+#      - /vols/zookeeper-3-data:/var/lib/zookeeper/data  
+#      - /vols/zookeeper-3-log:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+
+  broker-1:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: broker-1
+    container_name: broker-1
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "19092:19092"
+      - "18092:18092"
+#    volumes:
+#      - /vols/kafka-1-data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092,PLAINTEXT_HOST://localhost:18092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  broker-2:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: broker-2
+    container_name: broker-2
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "29092:29092"
+      - "28092:28092"
+#    volumes:
+#      - /vols/kafka-2-data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:22181,localhost:12181,localhost:32181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092,PLAINTEXT_HOST://localhost:28092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092,localhost:19092,localhost:39092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  broker-3:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: broker-3
+    container_name: broker-3
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - "39092:39092"
+      - "38092:38092"
+#    volumes:
+#      - /vols/kafka-3-data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092,PLAINTEXT_HOST://localhost:38092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:39092,localhost:29092,localhost:19092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+
+#########################################
+#                                       #
+#     control-center server && sides    #
+#                                       #
+#########################################
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.1.0
+    hostname: localhost
+    container_name: schema-registry
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - broker-1
+      - broker-2
+      - broker-3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: localhost
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:12181
+
+  connect:
+    image: confluentinc/kafka-connect-datagen
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: localhost
+    container_name: connect
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
+    ports:
+      - "8083:8083"
+    volumes:
+      - mi2:/usr/share/java/monitoring-interceptors/
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
+      CONNECT_REST_ADVERTISED_HOST_NAME: connect
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: compose-connect-group
+      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
+      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.1.0.jar
+      CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+      CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.0.0.jar
+
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:5.1.0
+    hostname: control-center
+    container_name: control-center
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
+      - connect
+      - ksql-server
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_NAME: 'Control-Center'
+
+      CONTROL_CENTER_KAFKA_PROD_BOOTSTRAP_SERVERS: 'localhost:17092,localhost:27092,localhost:37092'
+      CONTROL_CENTER_ZOOKEEPER_PROD_CONNECT: 'localhost:61181,localhost:62181,localhost:63181'
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+
+      CONTROL_CENTER_CONNECT_CLUSTER: 'connect:8083'
+      CONTROL_CENTER_KSQL_URL: "http://ksql-server:8088"
+      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
+      CONTROL_CENTER_REPLICATION_FACTOR: 3
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 2
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 3
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 3
+      PORT: 9021
+
+#######################
+#                     #
+#     KSQL (srv/Cli)  #
+#                     #
+#######################
+
+
+  ksql-server:
+    image: confluentinc/cp-ksql-server:5.1.0
+    hostname: ksql-server
+    container_name: ksql-server
+    network_mode: host
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - connect
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksql"
+      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties"
+      KSQL_BOOTSTRAP_SERVERS: "localhost:39092,localhost:29092,localhost:19092"
+      KSQL_HOST_NAME: ksql-server
+      KSQL_APPLICATION_ID: "cp-all-in-one"
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://localhost:8081"
+      KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+
+  ksql-cli:
+    image: confluentinc/cp-ksql-cli:5.1.0
+    container_name: ksql-cli
+    network_mode: host
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - connect
+      - ksql-server
+    entrypoint: /bin/sh
+    tty: true
+
+
+#################
+#               #
+#   REST-Prox   #
+#               #
+#################
+
+
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:5.1.0
+    hostname: rest-proxy
+    container_name: rest-proxy
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
+    ports:
+      - 8082:8082
+    hostname: rest-proxy
+    container_name: rest-proxy
+    network_mode: host
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: 'localhost:39092,localhost:29092,localhost:19092'
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://localhost:8081'
+
+volumes:
+    mi2: {}
+
