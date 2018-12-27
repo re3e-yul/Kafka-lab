@@ -21,7 +21,7 @@ else
         echo -e "Git already installed"
 fi
 LabHome=$(find  /home  -name Kafka-Lab-1)
-
+clear
 if [[ -z $LabHome ]]
 then
 	cd ~
@@ -127,18 +127,66 @@ docker exec -it PROD-broker-3 sh -c "ProdZK=localhost:63181"
 docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic PROD-1"
 docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic PROD-2"
 docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic PROD-3"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic BANKING_ACCOUNT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic BANKING_ACCOUNT_CHANGE_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic BNC_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic BNI_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CDBN_INVESTMENT_BALANCE_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CDBN_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Account_Balance"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Ordered_Transactions"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Ordered_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Synchronized_Account_Balance_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Synchronized_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Transactions"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CO_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Account_Balance"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Ordered_Transactions"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Ordered_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Synchronized_Account_Balance_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Synchronized_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Transactions"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic CP_Transactions_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic FBN_INVESTMENT_BALANCE_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic FBN_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic FERR_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic LOAN_ACCOUNT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic LOAN_ACCOUNT_CHANGE_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic MASTERCARD_ACCOUNT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic MASTERCARD_ACCOUNT_CHANGE_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic MORTGAGE_ACCOUNT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic MORTGAGE_ACCOUNT_CHANGE_Poison"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic Realtime_AccountSynchroData_Monitoring"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic Realtime_AccountSynchroSummary_Monitoring"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic Realtime_Transaction_Monitoring"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic TBN_INVESTMENT_CHANGE"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic notificationTopic"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic resynchronizeChannel"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic sherif"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic springCloudBus"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic springCloudHystrixStream"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic synchronizeChannel"
+docker exec -it PROD-broker-1 sh -c "kafka-topics --create --if-not-exists --zookeeper $ProdZK --partitions 5 --replication-factor 3 --topic turbineStreamInput"
 sleep 2
 clear
 cat ./dockerps 
-rm -f ./dockerps
 echo -e ""
 echo -e ""
 echo -e "Topics on Prod cluster: "
 docker exec -it PROD-broker-1 sh -c "kafka-topics --list --zookeeper $ProdZK" | grep -v "__"
 
 echo "Creating sink producer for local syslog to PROD-topic1"
-sudo kafka-console-producer --broker-list localhost:17092 --topic PROD-1  < /var/log/syslog 
+sudo kafka-console-producer --broker-list localhost:17092 --topic sherif  < /var/log/syslog 
 echo -e ""
 echo -e ""
-echo "Creating consumer for remote syslog from  PROD-topic1"
-sudo kafka-console-consumer --bootstrap-server localhost:17092 --topic PROD-1 -group syslog --from-beginning
+clear
+cat ./dockerps 
+echo -e ""
+echo -e ""
+echo -e "Topics on Prod cluster: "
+docker exec -it PROD-broker-1 sh -c "kafka-topics --list --zookeeper $ProdZK" | grep -v "__"
+
+echo "sink producer for local syslog to sherif CREATED"
+echo "Creating consumer for remote syslog from  sherif"
+sudo kafka-console-consumer --bootstrap-server localhost:17092 --topic sherif -group syslog --from-beginning
+rm -f ./dockerps
