@@ -14,7 +14,12 @@ then
 else
         echo -e "docker-compose already installed"
 fi
-
+if [ $(dpkg -l git | tail -n 1 | grep -c git) -eq 0 ]
+then 
+        echo -e "installing Git " && apt-get install -y git 
+else
+        echo -e "Git already installed"
+fi
 LabHome=$(find  /home  -name Kafka-Lab-1)
 
 if [[ -z $LabHome ]]
@@ -24,6 +29,7 @@ then
 	echo -e "Portable Confluent Kafka lab 1"
 	echo -e "docker engine already installed"
 	echo -e "docker-compose already installed"
+        echo -e "Git already installed"
 	git clone https://github.com/re3e-yul/Kafka-lab.git ~/Kafka-Lab-1
 	cd Kafka-Lab-1
 	LabHome=$(find  /home  -name Kafka-Lab-1)
@@ -32,6 +38,7 @@ else
         echo -e "Portable Confluent Kafka lab 1"
         echo -e "docker engine already installed"
         echo -e "docker-compose already installed"
+        echo -e "Git already installed"
 	echo -e "Lab docker directory is : " $LabHome
 fi
 
@@ -49,6 +56,7 @@ clear
 echo -e "Portable Confluent Kafka lab 1"
 echo -e "docker engine already installed"
 echo -e "docker-compose already installed"
+echo -e "Git already installed"
 echo -e "Lab docker directory is : " $LabHome
 echo -e "starting docker machines"
 docker-compose up -d
@@ -57,6 +65,7 @@ docker ps > ./dockerps
 echo -e "Portable Confluent Kafka lab 1"
 echo -e "docker engine already installed"
 echo -e "docker-compose already installed"
+echo -e "Git already installed"
 echo -e "Lab docker directory is : " $LabHome
 echo -e ""
 echo -e ""
@@ -71,6 +80,7 @@ do
 	echo -e "Portable Confluent Kafka lab 1"
 	echo -e "docker engine already installed"
 	echo -e "docker-compose already installed"
+        echo -e "Git already installed"
 	echo -e "Lab docker directory is : " $LabHome
 	echo -e ""
 	echo -e ""
@@ -98,6 +108,7 @@ do
         echo -e "Portable Confluent Kafka lab 1"
         echo -e "docker engine already installed"
         echo -e "docker-compose already installed"
+        echo -e "Git already installed"
         echo -e "Lab docker directory is : " $LabHome
         echo -e ""
         echo -e ""
