@@ -4,13 +4,13 @@ clear
 echo -e "Portable Confluent Kafka lab 1"
 if [ $(dpkg -l docker | tail -n 1 | grep -c docker) -eq 0 ]
 then 
-	echo -e "installing dockers " && apt-get install -y docker 
+	echo -e "installing dockers " && apt-get install -y docker.io 
 else
 	echo -e "docker engine already installed"
 fi
 if [ $(dpkg -l docker-compose | tail -n 1 | grep -c docker) -eq 0 ]
 then 
-        echo -e "installing dockers " && apt-get install -y docker 
+        echo -e "installing docker-compose " && apt-get install -y docker-composer 
 else
         echo -e "docker-compose already installed"
 fi
@@ -20,6 +20,13 @@ then
 else
         echo -e "Git already installed"
 fi
+if [ $(dpkg -l netcat-openbsd | tail -n 1 | grep -c netcat-openbsd) -eq 0 ]
+then 
+        echo -e "installing netcat " && apt-get install -y netcat-openbsd
+else
+        echo -e "netcat already installed"
+fi
+
 LabHome=$(find  /home  -name Kafka-Lab-1)
 clear
 if [[ -z $LabHome ]]
@@ -74,7 +81,7 @@ echo -e "Waiting for infra to come up"
 echo -e ""
 echo -e ""
 Zks=0
-while [[ $Zks -lt 3 ]]
+while [[ $Zks -ne 3 ]]
 do
 	clear
 	echo -e "Portable Confluent Kafka lab 1"
