@@ -1,5 +1,11 @@
 #! /bin/bash
 export ProdZK="localhost:61181"
+if [[ -z $(id | grep root ) ]]
+then 
+	echo "Please run this as root
+	exit
+fi
+
 clear
 echo -e "Portable Confluent Kafka lab 1"
 if [ $(dpkg -l docker | tail -n 1 | grep -c docker) -eq 0 ]
