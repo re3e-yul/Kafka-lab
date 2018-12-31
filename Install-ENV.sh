@@ -2,7 +2,7 @@
 export ProdZK="localhost:61181"
 if [[ -z $(id | grep root ) ]]
 then 
-	echo "Please run this as root
+	echo "Please run this as root"
 	exit
 fi
 
@@ -10,7 +10,7 @@ clear
 echo -e "Portable Confluent Kafka lab 1"
 if [ $(dpkg -l docker | tail -n 1 | grep -c docker) -eq 0 ]
 then 
-	echo -e "installing dockers " && apt-get install -y docker.io 
+	echo -e "installing dockers " && sudo apt-get -y install docker.io
 else
 	echo -e "docker engine already installed"
 fi
@@ -87,7 +87,7 @@ echo -e "Waiting for infra to come up"
 echo -e ""
 echo -e ""
 Zks=0
-while [[ $Zks -ne 3 ]]
+while [[ $Zks -lt 3 ]]
 do
 	clear
 	echo -e "Portable Confluent Kafka lab 1"
