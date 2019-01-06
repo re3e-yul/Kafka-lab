@@ -18,9 +18,9 @@ services:
     ports:
       - "61181:61181"
       - "61888:61988"
-#    volumes:
-#      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
-#      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
+      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 61181
@@ -37,9 +37,9 @@ services:
     ports:
       - "62181:62181"
       - "62888:62988"
-#    volumes:
-#      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
-#      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
+      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 62181
@@ -56,9 +56,9 @@ services:
     ports:
       - "63181:63181"
       - "63888:63988"
-#    volumes:
-#      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
-#      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/PROD-zk-1-data:/var/lib/zookeeper/data  
+      - ~/vols/PROD-zk-1-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 63181
@@ -76,8 +76,8 @@ services:
       - PROD-zk-1
       - PROD-zk-2
       - PROD-zk-3
-#    volumes:
-#      - ~/vols/PROD-Broker-1-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/PROD-Broker-1-data:/var/lib/kafka/data
     ports:
       - "17092:17092"
       - "16092:16092"
@@ -104,8 +104,8 @@ services:
       - PROD-zk-1
       - PROD-zk-2
       - PROD-zk-3
-#    volumes:
-#      - ~/vols/PROD-Broker-2-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/PROD-Broker-2-data:/var/lib/kafka/data
     ports:
       - "27092:27092"
       - "26092:26092"
@@ -132,8 +132,8 @@ services:
       - PROD-zk-1
       - PROD-zk-2
       - PROD-zk-3
-#    volumes:
-#      - ~/vols/PROD-Broker-3-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/PROD-Broker-3-data:/var/lib/kafka/data
     ports:
       - "37092:37092"
       - "36092:36092"
@@ -166,9 +166,9 @@ services:
     ports:
       - "12181:12181"
       - "22888:23888"
-#    volumes:
-#      - ~/vols/zookeeper-1-data:/var/lib/zookeeper/data  
-#      - ~/vols/zookeeper-1-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/zookeeper-1-data:/var/lib/zookeeper/data  
+      - ~/vols/zookeeper-1-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 12181
@@ -185,9 +185,9 @@ services:
     ports:
       - "22181:22181"
       - "32888:33888"
-#    volumes:
-#      - ~/vols/zookeeper-2-data:/var/lib/zookeeper/data  
-#      - ~/vols/zookeeper-2-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/zookeeper-2-data:/var/lib/zookeeper/data  
+      - ~/vols/zookeeper-2-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 22181
@@ -204,9 +204,9 @@ services:
     ports:
       - "32181:32181"
       - "42888:43888"
-#    volumes:
-#      - ~/vols/zookeeper-3-data:/var/lib/zookeeper/data  
-#      - ~/vols/zookeeper-3-log:/var/lib/zookeeper/log
+    volumes:
+      - ~/vols/zookeeper-3-data:/var/lib/zookeeper/data  
+      - ~/vols/zookeeper-3-log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 32181
@@ -227,8 +227,8 @@ services:
     ports:
       - "19092:19092"
       - "18092:18092"
-#    volumes:
-#      - ~/vols/Broker-1-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/Broker-1-data:/var/lib/kafka/data
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
@@ -255,8 +255,8 @@ services:
     ports:
       - "29092:29092"
       - "28092:28092"
-#    volumes:
-#      - ~/vols/Broker-2-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/Broker-2-data:/var/lib/kafka/data
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: 'localhost:22181,localhost:12181,localhost:32181'
@@ -283,8 +283,8 @@ services:
     ports:
       - "39092:39092"
       - "38092:38092"
-#    volumes:
-#      - ~/vols/Broker-3-data:/var/lib/kafka/data
+    volumes:
+      - ~/vols/Broker-3-data:/var/lib/kafka/data
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
@@ -480,22 +480,22 @@ services:
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://localhost:8081'
 
 volumes:
-    mi2: {}
-#    PROD-zk-1-data:   
-#    PROD-zk-1-log: 
-#    PROD-zk-2-data:  
-#    PROD-zk-2-log: 
-#    PROD-zk-3-data:   
-#    PROD-zk-3-log: 
-#    PROD-Broker-1-data: 
-#    PROD-Broker-2-data: 
-#    PROD-Broker-3-data: 
-#    zookeeper-1-data: 
-#    zookeeper-1-log: 
-#    Broker-1-data: 
-#    zookeeper-2-data:   
-#    zookeeper-2-log: 
-#    Broker-2-data: 
-#    zookeeper-3-data:   
-#    zookeeper-3-log: 
-#    Broker-3-data: 
+    mi2: 
+    PROD-zk-1-data:   
+    PROD-zk-1-log: 
+    PROD-zk-2-data:  
+    PROD-zk-2-log: 
+    PROD-zk-3-data:   
+    PROD-zk-3-log: 
+    PROD-Broker-1-data: 
+    PROD-Broker-2-data: 
+    PROD-Broker-3-data: 
+    zookeeper-1-data: 
+    zookeeper-1-log: 
+    Broker-1-data: 
+    zookeeper-2-data:   
+    zookeeper-2-log: 
+    Broker-2-data: 
+    zookeeper-3-data:   
+    zookeeper-3-log: 
+    Broker-3-data: 
