@@ -480,23 +480,22 @@ services:
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://localhost:8081'
 
 volumes:
-	mi2: {}
-    	PROD-zk-1-data: {}  
-    	PROD-zk-1-log: {}
-	PROD-zk-2-data: {} 
-    	PROD-zk-2-log: {}
-    	PROD-zk-3-data: {}  
-    	PROD-zk-3-log: {}
-	PROD-Broker-1-data: {}
-	PROD-Broker-2-data: {}
-	PROD-Broker-3-data: {}
-
-	zookeeper-1-data: {}
-      	zookeeper-1-log: {}
-	Broker-1-data: {}
-	zookeeper-2-data: {}  
-      	zookeeper-2-log: {}
-	Broker-2-data: {}
-	zookeeper-3-data: {}  
-      	zookeeper-3-log: {}
-	Broker-3-data: {}
+    mi2: 
+    PROD-zk-1-data:   
+    PROD-zk-1-log: 
+    PROD-zk-2-data:  
+    PROD-zk-2-log: 
+    PROD-zk-3-data:   
+    PROD-zk-3-log: 
+    PROD-Broker-1-data: 
+    PROD-Broker-2-data: 
+    PROD-Broker-3-data: 
+    zookeeper-1-data: 
+    zookeeper-1-log: 
+    Broker-1-data: 
+    zookeeper-2-data:   
+    zookeeper-2-log: 
+    Broker-2-data: 
+    zookeeper-3-data:   
+    zookeeper-3-log: 
+    Broker-3-data: 
