@@ -325,7 +325,7 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:12181
 
   connect:
-    image: confluentinc/kafka-connect-datagen
+    image: confluentinc/kafka-connect
     hostname: localhost
     container_name: connect
     network_mode: host
