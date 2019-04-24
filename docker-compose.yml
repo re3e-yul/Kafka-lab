@@ -10,7 +10,7 @@ services:
 ############################
 
   PROD-zk-1:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: PROD-zk-1
     container_name: PROD-zk-1
     network_mode: host
@@ -30,7 +30,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
 
   PROD-zk-2:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: PROD-zk-2
     container_name: PROD-zk-2
     network_mode: host
@@ -49,7 +49,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
 
   PROD-zk-3:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: PROD-zk-3
     container_name: PROD-zk-3
     network_mode: host
@@ -68,7 +68,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:61888:61988;localhost:62888:62988;localhost:63888:63988
 
   PROD-broker-1:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: PROD-broker-1
     container_name: PROD-broker-1
     network_mode: host
@@ -94,9 +94,10 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+#      JMX_PORT: 55555
 
   PROD-broker-2:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: PROD-broker-2
     container_name: PROD-broker-2
     network_mode: host
@@ -124,7 +125,7 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
   PROD-broker-3:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: PROD-broker-3
     container_name: PROD-broker-3
     network_mode: host
@@ -159,7 +160,7 @@ services:
 ################################
 
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: zookeeper-1
     container_name: zookeeper-1
     network_mode: host
@@ -178,7 +179,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
 
   zookeeper-2:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: zookeeper-2
     container_name: zookeeper-2
     network_mode: host
@@ -197,7 +198,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
 
   zookeeper-3:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:4.1.0
     hostname: zookeeper-3
     container_name: zookeeper-3
     network_mode: host
@@ -216,7 +217,7 @@ services:
       ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
 
   broker-1:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: broker-1
     container_name: broker-1
     network_mode: host
@@ -231,7 +232,7 @@ services:
 #      - ~/vols/Broker-1-data:/var/lib/kafka/data
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:32181,localhost:22181,localhost:12181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092,PLAINTEXT_HOST://localhost:18092
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
@@ -241,10 +242,11 @@ services:
       CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
       CONFLUENT_METRICS_ENABLE: 'true'
-      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous' 
+#      JMX_PORT: "55555"
 
   broker-2:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: broker-2
     container_name: broker-2
     network_mode: host
@@ -272,7 +274,7 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
   broker-3:
-    image: confluentinc/cp-enterprise-kafka:5.1.0
+    image: confluentinc/cp-enterprise-kafka:4.1.0
     hostname: broker-3
     container_name: broker-3
     network_mode: host
@@ -307,7 +309,7 @@ services:
 #########################################
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.1.0
+    image: confluentinc/cp-schema-registry:4.1.0
     hostname: localhost
     container_name: schema-registry
     network_mode: host
@@ -359,7 +361,7 @@ services:
       CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.1.0.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-4.1.0.jar
       CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
@@ -367,7 +369,7 @@ services:
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.0.0.jar
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.1.0
+    image: confluentinc/cp-enterprise-control-center:4.1.0
     hostname: control-center
     container_name: control-center
     network_mode: host
@@ -408,7 +410,7 @@ services:
 
 
   ksql-server:
-    image: confluentinc/cp-ksql-server:5.1.0
+    image: confluentinc/cp-ksql-server
     hostname: ksql-server
     container_name: ksql-server
     network_mode: host
@@ -432,7 +434,7 @@ services:
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
 
   ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.1.0
+    image: confluentinc/cp-ksql-cli
     container_name: ksql-cli
     network_mode: host
     depends_on:
@@ -453,7 +455,7 @@ services:
 
 
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:5.1.0
+    image: confluentinc/cp-kafka-rest:4.1.0
     hostname: rest-proxy
     container_name: rest-proxy
     network_mode: host
